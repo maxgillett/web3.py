@@ -34,6 +34,7 @@ KEYFILE_PW = 'web3py-test'
 
 
 GETH_16_FIXTURE = {
+    'datadir': 'geth-16-datadir-fixture',
     'block_hash_with_log': '0x5d84bd72195aacbbf6f3ed66be7a16495ed470cbc3e4764c69e4be75ab084148',
     'block_with_txn_hash': '0x4000549a8a573ed2e436de3a9014fdf71922f59aa11753870baa2ad03a32ebfc',
     'emitter_address': '0x4aa591a07989b4f810e2f5ce97e769d60710f168',
@@ -47,6 +48,7 @@ GETH_16_FIXTURE = {
     'txn_hash_with_log': '0x2fd8dcd6ab1318245f8423df8e31f66f5d0fac2db34d7ab4a2a21a71037beae1',
 }
 GETH_17_FIXTURE = {
+    'datadir': 'geth-17-datadir-fixture',
     'block_hash_with_log': '0x78a60c6b31c7af5e5ce87bad73b595dfe5b8715b161f4d3ded468ddcb14b5aeb',
     'block_with_txn_hash': '0x034faac7d0932774d9d837a97d55061a2dca9724c9779427a075f0a475aa3f43',
     'emitter_address': '0x4aa591a07989b4f810e2f5ce97e769d60710f168',
@@ -84,7 +86,7 @@ def geth_binary():
 @pytest.fixture(scope="session")
 def geth_fixture_data(geth_binary):
     from geth import get_geth_version
-    version = get_geth_version(geth_executable=os.path.abspath(os.path.expanduser(geth_binary)))
+    version = get_geth_version(geth_executable=os.path.expanduser(geth_binary))
     if version.major == 1:
         if version.minor == 6:
             return GETH_16_FIXTURE
@@ -94,7 +96,7 @@ def geth_fixture_data(geth_binary):
 
 
 @pytest.fixture(scope='session')
-def datadir(tmpdir_factory):
+def datadir(tmpdir_factory, geth_fixture_data):
     fixture_datadir = os.path.abspath(os.path.join(
         os.path.dirname(__file__),
         geth_fixture_data['datadir'],
