@@ -19,13 +19,7 @@ from web3.utils.module_testing import (
     VersionModuleTest,
     Web3ModuleTest,
 )
-from web3.utils.module_testing.math_contract import (
-    MATH_BYTECODE,
-    MATH_ABI,
-)
 from web3.utils.module_testing.emitter_contract import (
-    EMITTER_BYTECODE,
-    EMITTER_ABI,
     EMITTER_ENUM,
 )
 from web3.providers.eth_tester import (
