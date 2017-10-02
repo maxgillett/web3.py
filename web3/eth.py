@@ -253,6 +253,20 @@ class Eth(Module):
             [transaction, block_identifier],
         )
 
+    def batchCall(self, transactions, block_identifier=None):
+        # TODO: move to middleware
+        #if 'from' not in transaction and is_address(self.defaultAccount):
+        #    transaction = assoc(transaction, 'from', self.defaultAccount)
+
+        # TODO: move to middleware
+        if block_identifier is None:
+            block_identifier = self.defaultBlock
+
+        return self.web3.manager.request_blocking(
+            "eth_batchCall",
+            [transactions, block_identifier],
+        )
+
     def estimateGas(self, transaction):
         # TODO: move to middleware
         if 'from' not in transaction and is_address(self.defaultAccount):
